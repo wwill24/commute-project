@@ -3,8 +3,22 @@ import React from 'react'
 import './info.css'
 import CheckDays from './checkDays'
 import SelectTime from './selectTime'
+import ArrivalTimeInput from './arrivalTime'
 
 const Info = () => {
+  const sendToServer = (event) => {
+    event.preventDefault();
+
+    const formElement = document.getElementById("infoForm");
+    const formData = new FormData(formElement);
+    const payload = new URLSearchParams(formData);
+
+    fetch("/formSubmit", {
+      method: "POST",
+      body: payload
+    })
+  }
+
   return (
     <div className='home-page'>
       {/* <div className='photo'>
@@ -20,7 +34,7 @@ const Info = () => {
         </p>
       </div>
       <div className='form'>
-        <form className='form control'>
+        <form id='infoForm' onSubmit={sendToServer}>
           <label>First Name</label>
           <input type='text' name='user_name' required></input>
           <label>Phone Number</label>
@@ -31,6 +45,8 @@ const Info = () => {
           <input type='text' name='destination_address' required></input>
           <label>Destination Name</label>
           <input type='text' name='destination_name' required></input>
+          <label>When do you need to arrive?</label>
+          <ArrivalTimeInput/>
           <CheckDays/>
           <SelectTime className='time'/>
           <button className='btn'>Submit</button>
