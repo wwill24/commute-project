@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const { body } = require('express-validator')
 const { google } = require('googleapis')
-// const { client } = require('../lib/googleClient')
+const { getClient, getAuth } = require('../lib/googleClient')
 const router = Router()
 
 router.get('/', (req, res) => {
@@ -31,13 +31,9 @@ router.post('/', [
   } = req.body
 
   // ! do something with the user object (save to google sheets)
-  const auth = new google.auth.GoogleAuth({
-    keyFile: 'credentials.json',
-    scopes: 'https://www.googleapis.com/auth/spreadsheets'
-  })
+  const client = await getClient()
+  const auth = getAuth()
 
-  // Create client instance for authentication
-  const client = await auth.getClient()
   // Instance of Google Sheets API
   const googleSheets = google.sheets({ version: 'v4', auth: client })
 

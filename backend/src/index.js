@@ -16,7 +16,7 @@ app.use(bodyParser.json())
 app.use('/', require('./routes'))
 
 const port = process.env.PORT || 5001
-const serverModule = server.listen(port, (req, res) => {
+const serverModule = server.listen(port, async (req, res) => {
   console.log('⚡️ Successfully Started Express Server')
   console.log(`⚡️ Environment: ${process.env.NODE_ENV}`)
   console.log(`⚡️ Node Version: ${process.version}`)
