@@ -16,10 +16,6 @@ app.use(bodyParser.json())
 
 app.use('/', require('./routes'))
 
-app.get('/', (req, res) => {
-// res.render(')
-})
-
 app.post('/formSubmit', async (req, res) => {
   const auth = new google.auth.GoogleAuth({
     keyFile: 'credentials.json',
