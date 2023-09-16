@@ -5,6 +5,7 @@ const cors = require('cors')
 const helmet = require('helmet')
 
 if (process.env.NODE_ENV === 'development') require('dotenv').config({ path: './.env.development' })
+const { getClient } = require('./lib/googleClient')
 const app = express()
 const server = http.Server(app)
 
@@ -22,6 +23,7 @@ const serverModule = server.listen(port, async (req, res) => {
   console.log(`⚡️ Node Version: ${process.version}`)
   console.log(`⚡️ Listening on: http://localhost:${port}`)
   console.log(`⚡️ OS ${process.platform}`)
+  global.googleClient = await getClient()
 })
 
 module.exports.stop = () => {

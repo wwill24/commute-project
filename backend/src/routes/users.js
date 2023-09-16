@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const { body } = require('express-validator')
 const { google } = require('googleapis')
-const { getClient, getAuth } = require('../lib/googleClient')
+const { getAuth } = require('../lib/googleClient')
 const router = Router()
 
 router.get('/', (req, res) => {
@@ -31,11 +31,10 @@ router.post('/', [
   } = req.body
 
   // ! do something with the user object (save to google sheets)
-  const client = await getClient()
   const auth = getAuth()
 
   // Instance of Google Sheets API
-  const googleSheets = google.sheets({ version: 'v4', auth: client })
+  const googleSheets = google.sheets({ version: 'v4', auth: global.googleClient })
 
   // Get metadata about spreadsheet
   const rowData = await googleSheets.spreadsheets.values.get({
