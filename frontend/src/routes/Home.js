@@ -4,7 +4,7 @@ import Info from '../components/info'
 const Home = () => {
   return (
     <div>
-        <Info />
+      <Info />
     </div>
   )
 }
